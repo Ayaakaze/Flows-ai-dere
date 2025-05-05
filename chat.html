@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,14 +38,23 @@
       border-radius: 16px;
       position: relative;
       animation: fadeIn 0.4s ease forwards;
+      display: flex;
+      align-items: flex-end;
     }
     .user {
       background-color: #fce4ec;
       align-self: flex-end;
+      flex-direction: row-reverse;
     }
     .bot {
       background-color: #fff0f6;
       align-self: flex-start;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      margin: 0 10px;
+      border-radius: 50%;
     }
     .input-area {
       display: flex;
@@ -77,10 +87,19 @@
   </style>
 </head>
 <body>
-  <header>Flows - Mode: <span id="dereType"></span></header>  <div class="chat-box" id="chatBox"></div>  <div class="input-area">
+  <header>Flows - Mode: <span id="dereType"></span></header>
+
+  <div class="chat-box" id="chatBox"></div>
+
+  <div class="input-area">
     <input type="text" id="userInput" placeholder="Ketik sesuatu...">
     <button onclick="sendMessage()">Kirim</button>
-  </div>  <script>
+  </div>
+
+  <audio id="sendSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_efe1f6390d.mp3?filename=pop-94319.mp3"></audio>
+  <audio id="receiveSound" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_d01c542c7c.mp3?filename=message-pop-1-189276.mp3"></audio>
+
+  <script>
     const dereType = localStorage.getItem('dereType') || 'deredere';
     document.getElementById('dereType').textContent = dereType.toUpperCase();
 
@@ -92,15 +111,41 @@
       deredere: "Kamu adalah AI deredere. Ceria, manis, dan selalu optimis. Jawab seperti gadis anime yang hiperaktif."
     };
 
+    const avatars = {
+      user: 'https://i.imgur.com/OpvESz9.png',
+      bot: {
+        tsundere: 'https://i.imgur.com/U1dXQAB.png',
+        kuudere: 'https://i.imgur.com/CyBZ8m7.png',
+        yandere: 'https://i.imgur.com/AXs2Efw.png',
+        dandere: 'https://i.imgur.com/yYxj8zo.png',
+        deredere: 'https://i.imgur.com/SRaOGfH.png'
+      }
+    };
+
     const chatBox = document.getElementById('chatBox');
     const input = document.getElementById('userInput');
+    const sendSound = document.getElementById('sendSound');
+    const receiveSound = document.getElementById('receiveSound');
 
     function addMessage(content, isBot) {
       const bubble = document.createElement('div');
       bubble.className = 'bubble ' + (isBot ? 'bot' : 'user');
-      bubble.textContent = content;
+
+      const avatar = document.createElement('img');
+      avatar.className = 'avatar';
+      avatar.src = isBot ? avatars.bot[dereType] : avatars.user;
+
+      const text = document.createElement('span');
+      text.textContent = (isBot ? 'Flows: ' : 'Kamu: ') + content;
+
+      bubble.appendChild(avatar);
+      bubble.appendChild(text);
+
       chatBox.appendChild(bubble);
       chatBox.scrollTop = chatBox.scrollHeight;
+
+      if (isBot) receiveSound.play();
+      else sendSound.play();
     }
 
     async function sendMessage() {
@@ -137,5 +182,6 @@
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') sendMessage();
     });
-  </script></body>
+  </script>
+</body>
 </html>
