@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -115,7 +116,9 @@
   <header class="fade-in">
     <h1>AI dengan Kepribadian Dere</h1>
     <p>Koleksi AI dengan sifat khas anime - Klik untuk ngobrol!</p>
-  </header>  <div class="container">
+  </header>
+
+  <div class="container">
     <div class="card tsundere fade-in" onclick="selectDere('tsundere')">
       <div class="card-content">
         <h2>Tsundere AI</h2>
@@ -176,10 +179,13 @@
         <button>Mulai Chat</button>
       </div>
     </div>
-  </div>  <script>
+  </div>
+
+  <script>
     function selectDere(type) {
       localStorage.setItem('dereType', type);
       window.location.href = 'chat.html';
     }
-  </script></body>
+  </script>
+</body>
 </html>
