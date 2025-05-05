@@ -2,24 +2,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat dengan Flows AI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
+  <title>Flows Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Klee One', cursive;
-      background: #fdf5f9;
+      font-family: 'Roboto', sans-serif;
+      background: #ece5dd;
       display: flex;
       flex-direction: column;
       height: 100vh;
+      transition: opacity 0.5s ease;
+      opacity: 1;
+    }
+    body.fade-out {
+      opacity: 0;
     }
     header {
-      background-color: #ff78a1;
-      padding: 15px;
-      text-align: center;
+      background-color: #075e54;
+      padding: 10px;
+      display: flex;
+      align-items: center;
       color: white;
-      font-size: 1.2em;
+      font-size: 1em;
+    }
+    header img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
     }
     #chat-box {
       flex: 1;
@@ -27,61 +42,79 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
+      background: #e5ddd5;
     }
     .bubble {
-      max-width: 80%;
-      padding: 10px 15px;
+      max-width: 70%;
+      padding: 8px 12px;
       margin: 5px 0;
-      border-radius: 15px;
-      line-height: 1.5;
-      word-wrap: break-word;
+      border-radius: 8px;
+      line-height: 1.4;
+      position: relative;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .bubble::after {
+      content: attr(data-time);
+      display: block;
+      font-size: 0.7em;
+      color: #888;
+      text-align: right;
+      margin-top: 3px;
     }
     .user {
       align-self: flex-end;
-      background-color: #ffd3e0;
+      background-color: #dcf8c6;
+      border-bottom-right-radius: 0;
     }
     .ai {
       align-self: flex-start;
       background-color: #fff;
-      border: 1px solid #ffe5f0;
+      border-bottom-left-radius: 0;
     }
     form {
       display: flex;
       padding: 10px;
-      border-top: 1px solid #eee;
-      background-color: #fff0f4;
+      border-top: 1px solid #ccc;
+      background-color: #f0f0f0;
     }
     input {
       flex: 1;
       padding: 10px;
-      border: 1px solid #ccc;
+      border: none;
       border-radius: 20px;
       font-family: inherit;
       font-size: 1em;
+      outline: none;
     }
     button {
-      background: linear-gradient(135deg, #ff7eb9, #ff3e6c);
+      background: #25d366;
       color: white;
       border: none;
       padding: 10px 20px;
       margin-left: 10px;
-      border-radius: 30px;
+      border-radius: 50px;
       font-weight: bold;
       font-size: 1em;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(255, 126, 185, 0.3);
-      transition: transform 0.2s ease;
+      transition: background 0.2s ease;
     }
     button:hover {
-      transform: scale(1.05);
+      background: #20c95b;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <header id="header-text">Flows AI</header>
+  <header>
+    <img src="https://i.imgur.com/HLy7xPF.png" alt="Flows-chan">
+    <span id="header-text">Flows-chan</span>
+  </header>
   <div id="chat-box"></div>
   <form id="chat-form">
-    <input type="text" id="user-input" placeholder="Tulis pesanmu...">
+    <input type="text" id="user-input" placeholder="Ketik pesan di sini...">
     <button type="submit">Kirim</button>
   </form>  <script>
     const dereType = localStorage.getItem('dereType') || 'deredere';
@@ -91,7 +124,7 @@
     const input = document.getElementById('user-input');
 
     const apiKey = "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";
-    const model = "gpt-3.5-turbo";
+    const model = "mixtral-8x7b-32768";
 
     const styles = {
       tsundere: {
@@ -114,14 +147,17 @@
         name: 'Deredere',
         system: "You are a deredere AI. Cheerful, always excited, bubbly and full of affection."
       }
-    }
+    };
 
     const ai = styles[dereType];
-    header.textContent = `Flows - ${ai.name} Mode`;
+    header.textContent = `Flows-chan (${ai.name} Mode)`;
 
     function appendMessage(sender, text) {
       const bubble = document.createElement('div');
+      const now = new Date();
+      const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
       bubble.className = `bubble ${sender}`;
+      bubble.setAttribute('data-time', time);
       bubble.textContent = text;
       chatBox.appendChild(bubble);
       chatBox.scrollTop = chatBox.scrollHeight;
@@ -135,7 +171,7 @@
       input.value = '';
 
       try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        const response = await fetch("https://api.groqcloud.com/openai/v1/chat/completions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -146,17 +182,22 @@
             messages: [
               { role: "system", content: ai.system },
               { role: "user", content: msg }
-            ],
-            temperature: 0.9
+            ]
           })
         });
 
         const data = await response.json();
-        const reply = data.choices?.[0]?.message?.content || '(Tidak ada balasan)';
+        const reply = data.choices?.[0]?.message?.content || "(Tidak ada balasan)";
         appendMessage('ai', reply);
       } catch (err) {
-        appendMessage('ai', "Ups! Gagal menghubungi AI...");
+        console.error(err);
+        appendMessage('ai', "Ups! Flows-chan nggak bisa nyambung...");
       }
-    }
+    };
+
+    // Animasi perpindahan halaman
+    window.addEventListener('beforeunload', function () {
+      document.body.classList.add('fade-out');
+    });
   </script></body>
 </html>
