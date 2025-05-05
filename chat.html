@@ -124,7 +124,7 @@
     const input = document.getElementById('user-input');
 
     const apiKey = "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";
-    const model = "mixtral-8x7b-32768";
+    const model = "llama-3.1-70b-versalite";
 
     const styles = {
       tsundere: {
@@ -171,7 +171,7 @@
       input.value = '';
 
       try {
-        const response = await fetch("https://api.groqcloud.com/openai/v1/chat/completions", {
+        const response = await fetch("https://api.groq.com/openai/v1", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
