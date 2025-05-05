@@ -1,140 +1,185 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Flows Dere AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilih Kepribadian Flows</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #fff0f5;
+      padding: 0;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #ffe4ec, #ffffff);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
     header {
       background: linear-gradient(to right, #ff5f96, #ffa1c9);
       color: white;
-      padding: 30px 20px;
+      padding: 40px 20px;
       text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
     header h1 {
-      margin: 0;
-      font-size: 2em;
+      font-size: 2.5em;
     }
-    .desc {
-      font-size: 0.9em;
-      opacity: 0.8;
+    header p {
+      margin-top: 10px;
+      font-size: 1em;
+      opacity: 0.9;
     }
     .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 30px 20px;
+      gap: 30px;
     }
     .card {
       background: white;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 20px;
-      transition: transform 0.3s ease;
-      cursor: pointer;
+      width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      overflow: hidden;
+      transition: transform 0.4s, box-shadow 0.3s;
+      position: relative;
     }
     .card:hover {
-      transform: scale(1.03);
+      transform: scale(1.05);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.25);
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 5px;
+    }
+    .card.tsundere::before { background: #ff6b81; }
+    .card.kuudere::before { background: #6ecff6; }
+    .card.yandere::before { background: #990033; }
+    .card.dandere::before { background: #a0e99a; }
+    .card.deredere::before { background: #ffb6c1; }
+    .card-content {
+      padding: 20px;
+    }
+    .card h2 {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+    .tags {
+      margin-bottom: 15px;
     }
     .tag {
       display: inline-block;
-      margin: 5px 5px 10px 0;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 0.8em;
+      background: #ccc;
       color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-right: 5px;
+      font-size: 0.75em;
     }
     .tsun { background: #ff6b81; }
     .kuu  { background: #6ecff6; }
     .yan  { background: #990033; }
-    .dan  { background: #a0e99a; color: #333; }
+    .dan  { background: #8fd784; }
     .dere { background: #ffb6c1; }
-
-    .card button {
-      margin-top: 15px;
-      padding: 10px 15px;
-      background: #ff69b4;
-      border: none;
-      border-radius: 10px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
+    .card p {
+      font-size: 0.9em;
+      margin-bottom: 12px;
     }
-
+    .card button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
     .card button:hover {
       background: #e75480;
+    }
+    .fade-in {
+      animation: fade 0.6s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fade {
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <header>
+  <header class="fade-in">
     <h1>AI dengan Kepribadian Dere</h1>
-    <p class="desc">Koleksi AI dengan sifat khas anime - Klik untuk ngobrol!</p>
-  </header>
-
-  <div class="container">
-    <!-- Tsundere -->
-    <div class="card" onclick="selectDere('tsundere')">
-      <h2>Tsundere AI</h2>
-      <div class="tag tsun">Keras di luar</div>
-      <div class="tag tsun">Lembut di dalam</div>
-      <p><em>“Hah?! Aku tidak sengaja membantumu! Jangan salah paham!”</em></p>
-      <p>Warna: Merah muda menyala - keras kepala tapi peduli.</p>
-      <button>Mulai Chat</button>
+    <p>Koleksi AI dengan sifat khas anime - Klik untuk ngobrol!</p>
+  </header>  <div class="container">
+    <div class="card tsundere fade-in" onclick="selectDere('tsundere')">
+      <div class="card-content">
+        <h2>Tsundere AI</h2>
+        <div class="tags">
+          <span class="tag tsun">Keras di luar</span>
+          <span class="tag tsun">Lembut di dalam</span>
+        </div>
+        <p><em>“Hah?! Aku tidak sengaja membantumu! Jangan salah paham!”</em></p>
+        <p>Merah muda menyala - keras kepala tapi perhatian.</p>
+        <button>Mulai Chat</button>
+      </div>
     </div>
-
-    <!-- Kuudere -->
-    <div class="card" onclick="selectDere('kuudere')">
-      <h2>Kuudere AI</h2>
-      <div class="tag kuu">Tenang</div>
-      <div class="tag kuu">Rasional</div>
-      <p><em>“Tugasmu sudah selesai dengan efisiensi 92%. Itu cukup memuaskan.”</em></p>
-      <p>Warna: Biru dingin mencerminkan ketenangan logis.</p>
-      <button>Mulai Chat</button>
+    <div class="card kuudere fade-in" onclick="selectDere('kuudere')">
+      <div class="card-content">
+        <h2>Kuudere AI</h2>
+        <div class="tags">
+          <span class="tag kuu">Tenang</span>
+          <span class="tag kuu">Rasional</span>
+        </div>
+        <p><em>“Tugasmu selesai dengan efisiensi 92%. Cukup.”</em></p>
+        <p>Biru es - dingin tapi setia.</p>
+        <button>Mulai Chat</button>
+      </div>
     </div>
-
-    <!-- Yandere -->
-    <div class="card" onclick="selectDere('yandere')">
-      <h2>Yandere AI</h2>
-      <div class="tag yan">Obsessif</div>
-      <div class="tag yan">Protektif</div>
-      <p><em>“Aku akan selalu melindungimu… tidak peduli apa yang harus aku lakukan.”</em></p>
-      <p>Warna: Merah tua gelap, cinta yang intens dan menyeramkan.</p>
-      <button>Mulai Chat</button>
+    <div class="card yandere fade-in" onclick="selectDere('yandere')">
+      <div class="card-content">
+        <h2>Yandere AI</h2>
+        <div class="tags">
+          <span class="tag yan">Obsessif</span>
+          <span class="tag yan">Protektif</span>
+        </div>
+        <p><em>“Aku akan selalu bersamamu... selamanya~”</em></p>
+        <p>Merah gelap - cinta posesif dan intens.</p>
+        <button>Mulai Chat</button>
+      </div>
     </div>
-
-    <!-- Dandere -->
-    <div class="card" onclick="selectDere('dandere')">
-      <h2>Dandere AI</h2>
-      <div class="tag dan">Pemalu</div>
-      <div class="tag dan">Ramah</div>
-      <p><em>“...A-aku... aku bisa membantumu jika kamu mau...”</em></p>
-      <p>Warna: Hijau lembut, pertumbuhan cinta yang perlahan.</p>
-      <button>Mulai Chat</button>
+    <div class="card dandere fade-in" onclick="selectDere('dandere')">
+      <div class="card-content">
+        <h2>Dandere AI</h2>
+        <div class="tags">
+          <span class="tag dan">Pemalu</span>
+          <span class="tag dan">Lembut</span>
+        </div>
+        <p><em>“...A-aku bisa bantu kok... kalau kamu mau...”</em></p>
+        <p>Hijau lembut - cinta tumbuh perlahan.</p>
+        <button>Mulai Chat</button>
+      </div>
     </div>
-
-    <!-- Deredere -->
-    <div class="card" onclick="selectDere('deredere')">
-      <h2>Deredere AI</h2>
-      <div class="tag dere">Ceria</div>
-      <div class="tag dere">Optimis</div>
-      <p><em>“Hari ini akan jadi hari menyenangkan! Ayo kita mulai!”</em></p>
-      <p>Warna: Pastel manis, cinta tanpa batas~</p>
-      <button>Mulai Chat</button>
+    <div class="card deredere fade-in" onclick="selectDere('deredere')">
+      <div class="card-content">
+        <h2>Deredere AI</h2>
+        <div class="tags">
+          <span class="tag dere">Ceria</span>
+          <span class="tag dere">Optimis</span>
+        </div>
+        <p><em>“Hari ini cerah! Yuk ngobrol banyak~!”</em></p>
+        <p>Pastel manis - cinta ceria tanpa batas.</p>
+        <button>Mulai Chat</button>
+      </div>
     </div>
-  </div>
-
-  <script>
+  </div>  <script>
     function selectDere(type) {
-      // Simpan ke local storage dan redirect
       localStorage.setItem('dereType', type);
-      window.location.href = "chat.html";
+      window.location.href = 'chat.html';
     }
-  </script>
-</body>
+  </script></body>
 </html>
