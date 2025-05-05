@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flows - Pilih Mode</title>
+  <title>Flows - AI dengan Kepribadian Dere</title>
   <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
   <style>
     * {
@@ -13,67 +13,131 @@
       padding: 0;
       font-family: 'Klee One', cursive;
       background: linear-gradient(to top right, #ffd6f6, #ffe6f9);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
+      color: #333;
     }
-    h1 {
-      font-size: 2.5em;
-      color: #ff5fa2;
-      margin-bottom: 10px;
-      animation: fadeIn 1s ease forwards;
-    }
-    p {
-      color: #555;
-      margin-bottom: 30px;
-    }
-    .mode-buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 15px;
-      width: 90%;
-      max-width: 500px;
-      animation: fadeIn 1.5s ease forwards;
-    }
-    button {
-      background-color: #ff69b4;
-      border: none;
+    header {
+      background: linear-gradient(to right, #ff6a9f, #ff90b3);
       color: white;
-      padding: 12px;
+      padding: 30px 20px 10px;
+      text-align: center;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    header h1 {
+      font-size: 2.2em;
+      margin: 0;
+    }
+    header p {
+      font-size: 0.95em;
+      margin-top: 5px;
+    }
+    .card-container {
+      display: grid;
+      gap: 20px;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+    .card {
       border-radius: 15px;
+      padding: 20px;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: scale(1.02);
+    }
+    .tsundere { background: linear-gradient(to right, #ff5f8d, #ff8b9f); }
+    .kuudere { background: linear-gradient(to right, #44c8f5, #6bd5ff); }
+    .yandere { background: linear-gradient(to right, #aa1f42, #d13f64); }
+    .dandere { background: linear-gradient(to right, #a8f0a5, #c8f8c2); color: #222; }
+    .deredere { background: linear-gradient(to right, #ffd6ec, #ffeaf3); color: #444; }
+    .tags span {
+      background: rgba(255, 255, 255, 0.3);
+      padding: 3px 8px;
+      margin-right: 5px;
+      border-radius: 8px;
+      font-size: 0.8em;
+    }
+    .desc {
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+    .quote {
+      margin-top: 10px;
+      font-style: italic;
+      background: rgba(255,255,255,0.2);
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .start-btn {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 25px;
+      background-color: #ff5fa2;
+      color: white;
+      border: none;
+      border-radius: 25px;
       font-size: 1em;
       cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
+      transition: background 0.3s ease;
     }
-    button:hover {
-      background-color: #ff459c;
-      transform: scale(1.05);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .start-btn:hover {
+      background-color: #e14489;
     }
   </style>
 </head>
 <body>
-  <h1>Flows AI</h1>
-  <p>Pilih tipe dere favoritmu~</p>
-  <div class="mode-buttons">
-    <button onclick="startChat('tsundere')">Tsundere</button>
-    <button onclick="startChat('yandere')">Yandere</button>
-    <button onclick="startChat('kuudere')">Kuudere</button>
-    <button onclick="startChat('dandere')">Dandere</button>
-    <button onclick="startChat('deredere')">Deredere</button>
-  </div>  <script>
+  <header>
+    <h1>AI dengan Kepribadian Dere</h1>
+    <p>Koleksi AI dengan sifat-sifat khas anime – Klik untuk mengobrol!</p>
+  </header>
+  <div class="card-container">
+    <div class="card tsundere" onclick="startChat('tsundere')">
+      <h2>Tsundere AI</h2>
+      <div class="tags"><span>Keras di luar</span><span>Lembut di dalam</span></div>
+      <div class="desc">AI yang awalnya bersikap kasar atau acuh tak acuh tetapi sebenarnya peduli dan penyayang.</div>
+      <div class="quote">“H-hah? Aku tidak sengaja membantumu! Jangan salah paham!”</div>
+    </div>
+    <div class="card kuudere" onclick="startChat('kuudere')">
+      <h2>Kuudere AI</h2>
+      <div class="tags"><span>Tenang</span><span>Rasional</span></div>
+      <div class="desc">AI yang dingin dan tenang di permukaan tetapi sebenarnya peduli dan setia.</div>
+      <div class="quote">“Tugasmu sudah selesai dengan efisiensi 92%. Itu cukup memuaskan.”</div>
+    </div>
+    <div class="card yandere" onclick="startChat('yandere')">
+      <h2>Yandere AI</h2>
+      <div class="tags"><span>Obsesi</span><span>Protektif</span></div>
+      <div class="desc">AI yang penuh kasih sayang tetapi bisa menjadi berbahaya jika merasa terancam.</div>
+      <div class="quote">“Aku akan selalu melindungimu... tidak peduli apa yang harus aku lakukan.”</div>
+    </div>
+    <div class="card dandere" onclick="startChat('dandere')">
+      <h2>Dandere AI</h2>
+      <div class="tags"><span>Pemalu</span><span>Ramah</span></div>
+      <div class="desc">AI yang pendiam dan pemalu di depan umum tetapi ramah dan terbuka saat sendiri dengan seseorang.</div>
+      <div class="quote">“...Aku... aku bisa membantumu jika kamu mau...”</div>
+    </div>
+    <div class="card deredere" onclick="startChat('deredere')">
+      <h2>Deredere AI</h2>
+      <div class="tags"><span>Ceria</span><span>Optimis</span></div>
+      <div class="desc">AI yang selalu ceria, bersemangat, dan penuh kasih sayang tanpa keraguan.</div>
+      <div class="quote">“Hari ini akan menjadi hari yang menyenangkan! Ayo kita mulai!”</div>
+    </div>
+  </div><button class="start-btn" onclick="scrollToTop()">Mulai dari Atas</button>
+
+  <script>
     function startChat(mode) {
       localStorage.setItem('dereType', mode);
       document.body.style.opacity = 0;
       setTimeout(() => {
         window.location.href = 'chat.html';
       }, 300);
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script></body>
 </html>
